@@ -3,12 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AlgoJam — The Algorithmic Generation Jam</title>
-<meta name="description" content="AlgoJam is a jam to make something that makes something. Procedural generation, generative art and algorithmic play, with generative AI tools welcome.">
+<title>AlgoJam — The Algorithmic Jam</title>
+<meta name="description" content="AlgoJam is a jam to make something that makes something: procedural generation, generative art and algorithmic play. Generative AI tools are allowed as assistants, but the creativity should be yours.">
 <meta property="og:title" content="AlgoJam — The Algorithmic Jam">
-<meta property="og:description" content="Make something that makes something. Generative AI tools welcome.">
+<meta property="og:description" content="Make something that makes something. Generative AI tools are allowed as assistants, but the creativity should be yours.">
 <meta property="og:url" content="https://algojam.org/">
 <meta property="og:type" content="website">
+<meta property="og:image" content="https://algojam.org/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="AlgoJam: make something that makes something">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://algojam.org/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%231f5a6f'/%3E%3Cpath d='M4 12 8 4l4 8' stroke='%23fff' stroke-width='2' fill='none'/%3E%3C/svg%3E">
 <style>
@@ -89,6 +94,7 @@
   .links { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: 0.75rem; }
   .links a { display: flex; flex-direction: column; gap: 0.25rem; padding: 0.9rem 1rem; background: var(--accent); border: 1px solid var(--border); color: var(--on-accent); text-decoration: none; }
   .links a:hover { filter: brightness(1.12); }
+  .links a[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; filter: none; }
   .links a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   .links span { font-size: 0.85rem; font-weight: 400; line-height: 1.35; }
   ul { padding-left: 1.25rem; }
@@ -134,7 +140,8 @@
   <section id="join">
     <h2>Links</h2>
     <div class="links">
-      <a href="#"><!-- TODO: itch.io jam URL --><b>Join the Jam</b><span>Sign up on itch.io (coming soon)</span></a>
+      <!-- To enable: replace aria-disabled="true" with href="(itch.io jam URL)" -->
+      <a aria-disabled="true"><b>Join the Jam</b><span>Sign up on itch.io (coming soon)</span></a>
       <a href="https://discord.gg/67yD223"><b>Join Discord</b><span>Chat with us in the ProcJam community</span></a>
       <a href="https://www.procjam.com/"><b>Visit ProcJam</b><span>The original procedural generation jam</span></a>
     </div>
@@ -142,7 +149,7 @@
 </main>
 
 <footer>
-  <p>© 2026 Nathaniel Mitchell. Site source on <a href="https://github.com/"><!-- TODO: repo URL -->GitHub</a>.</p>
+  <p>© 2026 Nathaniel Mitchell. Site source on <a href="https://github.com/hectate/algojam-web">GitHub</a>.</p>
 </footer>
 </body>
 </html>
