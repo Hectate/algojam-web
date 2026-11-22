@@ -1,0 +1,49 @@
+<!doctype html>
+<!--
+  Source for cover-image.png, the itch.io jam cover image (630x500 layout, rendered at 2x = 1260x1000).
+  Colors, gradient and maze tile are copied from og-image.html / index.html (dark theme).
+  The maze tile is about 5x the title font size, matching the page (64px title, 320px tile).
+
+  To re-render on Windows with Microsoft Edge, run from the repo root.
+  Command Prompt:
+    "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --headless=new --disable-gpu --hide-scrollbars --force-device-scale-factor=2 --window-size=630,500 --screenshot="%CD%\cover-image.png" "%CD%\cover-image.html"
+  PowerShell:
+    & "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --headless=new --disable-gpu --hide-scrollbars --force-device-scale-factor=2 --window-size=630,500 --screenshot="$PWD\cover-image.png" "$PWD\cover-image.html"
+  (Chrome takes the same flags. Use --force-device-scale-factor=1 for a plain 630x500 image.)
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<title>AlgoJam cover image</title>
+<style>
+  :root { --bg: #0f2226; --card: #163238; --fg: #e3f4f6; --muted: #a3c4c9; --accent: #6fd8e8; }
+  html, body { margin: 0; width: 630px; height: 500px; overflow: hidden; }
+  body {
+    position: relative; color: var(--fg);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: linear-gradient(135deg,
+      color-mix(in srgb, var(--accent) 14%, var(--bg)),
+      var(--bg) 45%,
+      color-mix(in srgb, var(--accent) 10%, var(--bg)));
+  }
+  body::before {
+    content: ""; position: absolute; inset: 0; background: var(--accent); opacity: 0.08;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M0 0l1 1M2 0l-1 1M2 0l1 1M4 0l-1 1M5 0l-1 1M5 0l1 1M6 0l1 1M8 0l-1 1M9 0l-1 1M10 0l-1 1M1 1l-1 1M2 1l-1 1M2 1l1 1M3 1l1 1M4 1l1 1M6 1l-1 1M6 1l1 1M7 1l1 1M9 1l-1 1M10 1l-1 1M1 2l-1 1M1 2l1 1M2 2l1 1M3 2l1 1M5 2l-1 1M6 2l-1 1M7 2l-1 1M7 2l1 1M9 2l-1 1M9 2l1 1M0 3l1 1M1 3l1 1M3 3l-1 1M3 3l1 1M5 3l-1 1M5 3l1 1M6 3l1 1M7 3l1 1M9 3l-1 1M9 3l1 1M1 4l-1 1M1 4l1 1M2 4l1 1M3 4l1 1M5 4l-1 1M6 4l-1 1M6 4l1 1M8 4l-1 1M8 4l1 1M9 4l1 1M0 5l1 1M1 5l1 1M3 5l-1 1M3 5l1 1M5 5l-1 1M5 5l1 1M7 5l-1 1M7 5l1 1M8 5l1 1M10 5l-1 1M0 6l1 1M2 6l-1 1M2 6l1 1M3 6l1 1M5 6l-1 1M5 6l1 1M7 6l-1 1M8 6l-1 1M9 6l-1 1M9 6l1 1M1 7l-1 1M2 7l-1 1M2 7l1 1M3 7l1 1M4 7l1 1M6 7l-1 1M6 7l1 1M8 7l-1 1M9 7l-1 1M9 7l1 1M0 8l1 1M2 8l-1 1M2 8l1 1M4 8l-1 1M4 8l1 1M5 8l1 1M6 8l1 1M7 8l1 1M9 8l-1 1M10 8l-1 1M0 9l1 1M2 9l-1 1M3 9l-1 1M4 9l-1 1M5 9l-1 1M5 9l1 1M6 9l1 1M8 9l-1 1M9 9l-1 1M9 9l1 1' stroke='black' stroke-width='.16' stroke-linecap='square'/%3E%3C/svg%3E") 0 0 / 550px 550px;
+  }
+  .card {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 446px; padding: 44px 44px; text-align: right;
+    border: 3px solid transparent;
+    background: linear-gradient(var(--card), var(--card)) padding-box,
+                linear-gradient(135deg, var(--accent), transparent 60%) border-box;
+  }
+  h1 { margin: 0; font-size: 110px; line-height: 1; letter-spacing: -0.03em; font-weight: 700; }
+  h1 span { color: var(--accent); }
+  p { margin: 22px 0 0; font-size: 32px; line-height: 1.25; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="card"><h1>Λlgo<span>Jam</span></h1><p>Craft algorithms<br>that create artifacts.</p></div>
+</body>
+</html>
