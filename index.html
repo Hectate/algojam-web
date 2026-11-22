@@ -69,8 +69,11 @@
     color: var(--fg);
     font: 17px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   }
-  /* 10 PRINT maze texture: a fixed random tile of diagonal lines used as a mask, tinted with the accent color.
-     Delete this rule to remove it. Adjust opacity for strength, mask-size for scale. */
+  /* 10 PRINT maze. With JS, the script at the end of the page draws and animates it as an inline SVG (.maze).
+     Without JS, body::before shows a fixed tile of the same pattern as a mask, tinted with the accent color.
+     Delete these rules and both scripts to remove it. Adjust opacity for strength. */
+  .maze { position: fixed; top: 0; left: 0; z-index: -1; pointer-events: none; color: var(--accent); opacity: 0.07; }
+  .maze-js body::before { display: none; }
   body::before {
     content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
     background: var(--accent); opacity: 0.07;
@@ -106,6 +109,7 @@
   .theme span::before { content: var(--toggle-icon); }
   .theme input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
 </style>
+<script>document.documentElement.classList.add('maze-js'); // hides the no-JS maze before first paint</script>
 </head>
 <body>
 <label class="theme" title="Switch light/dark theme"><input type="checkbox" id="theme" aria-label="Switch light/dark theme"><span aria-hidden="true"></span></label>
@@ -149,7 +153,79 @@
 </main>
 
 <footer>
+  <p>The maze behind this page is generated as you load it. Click the background to draw a new one.</p>
   <p>© 2026 Nathaniel Mitchell. Site source on <a href="https://github.com/hectate/algojam-web">GitHub</a>.</p>
 </footer>
+<script>
+  // 10 PRINT maze: every cell gets a random "/" or "\" diagonal, drawn as one SVG path
+  // covering the viewport. Cells are "printed" left to right, top to bottom, like the
+  // original BASIC one-liner; a redraw prints the new maze over the old one.
+  // Clicking outside the content starts a redraw.
+  (function () {
+    var CELL = 32;       // px per cell
+    var DURATION = 1200; // ms to print the whole screen
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var NS = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(NS, 'svg');
+    var path = document.createElementNS(NS, 'path');
+    svg.setAttribute('class', 'maze');
+    svg.setAttribute('aria-hidden', 'true');
+    path.setAttribute('fill', 'none');
+    path.setAttribute('stroke', 'currentColor');
+    path.setAttribute('stroke-width', '.16');
+    path.setAttribute('stroke-linecap', 'square');
+    svg.appendChild(path);
+    document.body.prepend(svg);
+
+    // cells[y][x]: 0 = "\", 1 = "/", null = blank, undefined = not yet seen (filled at random)
+    var cols = 0, rows = 0, cells = [], frame;
+    function rand() { return Math.random() < 0.5 ? 0 : 1; }
+
+    function size() {
+      cols = Math.ceil(innerWidth / CELL);
+      rows = Math.ceil(innerHeight / CELL);
+      for (var y = 0; y < rows; y++) cells[y] = cells[y] || [];
+      svg.setAttribute('viewBox', '0 0 ' + cols + ' ' + rows);
+      svg.setAttribute('width', cols * CELL);
+      svg.setAttribute('height', rows * CELL);
+    }
+
+    function render() {
+      var d = '';
+      for (var y = 0; y < rows; y++) {
+        for (var x = 0; x < cols; x++) {
+          var c = cells[y][x];
+          if (c === undefined) c = cells[y][x] = rand(); // area revealed by a resize
+          if (c === 0) d += 'M' + x + ' ' + y + 'l1 1';
+          else if (c === 1) d += 'M' + (x + 1) + ' ' + y + 'l-1 1';
+        }
+      }
+      path.setAttribute('d', d);
+    }
+
+    function draw() {
+      cancelAnimationFrame(frame);
+      var start = performance.now(), done = 0;
+      function step(now) {
+        var total = cols * rows;
+        var upto = reduce ? total : Math.min(total, Math.ceil(total * (now - start) / DURATION));
+        for (; done < upto; done++) cells[Math.floor(done / cols)][done % cols] = rand();
+        render();
+        if (done < total) frame = requestAnimationFrame(step);
+      }
+      frame = requestAnimationFrame(step);
+    }
+
+    // First load: start from a blank screen and print the maze in
+    size();
+    for (var y = 0; y < rows; y++) for (var x = 0; x < cols; x++) cells[y][x] = null;
+    draw();
+
+    addEventListener('resize', function () { size(); render(); });
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('a, label, section')) draw();
+    });
+  })();
+</script>
 </body>
 </html>
