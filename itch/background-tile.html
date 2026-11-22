@@ -1,0 +1,30 @@
+<!doctype html>
+<!--
+  Source for background-tile.png, the itch.io jam page background image (320x320, set to repeat/tile).
+  It is the site's maze tile at the site's size (320px) and opacity (0.07), drawn in the accent color
+  over a flat --bg, so it blends into the page BG color #0f2226. The tile repeats seamlessly.
+  It has no gradient, because a gradient would show seams where the tiles meet.
+
+  To re-render on Windows with Microsoft Edge, run from this itch/ folder.
+  Command Prompt:
+    "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --headless=new --disable-gpu --hide-scrollbars --force-device-scale-factor=1 --window-size=320,320 --screenshot="%CD%\background-tile.png" "%CD%\background-tile.html"
+  PowerShell:
+    & "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --headless=new --disable-gpu --hide-scrollbars --force-device-scale-factor=1 --window-size=320,320 --screenshot="$PWD\background-tile.png" "$PWD\background-tile.html"
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<title>AlgoJam background tile</title>
+<style>
+  :root { --bg: #0f2226; --accent: #6fd8e8; }
+  html, body { margin: 0; width: 320px; height: 320px; overflow: hidden; background: var(--bg); }
+  body { position: relative; }
+  body::before {
+    content: ""; position: absolute; inset: 0; background: var(--accent); opacity: 0.07;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M0 0l1 1M2 0l-1 1M2 0l1 1M4 0l-1 1M5 0l-1 1M5 0l1 1M6 0l1 1M8 0l-1 1M9 0l-1 1M10 0l-1 1M1 1l-1 1M2 1l-1 1M2 1l1 1M3 1l1 1M4 1l1 1M6 1l-1 1M6 1l1 1M7 1l1 1M9 1l-1 1M10 1l-1 1M1 2l-1 1M1 2l1 1M2 2l1 1M3 2l1 1M5 2l-1 1M6 2l-1 1M7 2l-1 1M7 2l1 1M9 2l-1 1M9 2l1 1M0 3l1 1M1 3l1 1M3 3l-1 1M3 3l1 1M5 3l-1 1M5 3l1 1M6 3l1 1M7 3l1 1M9 3l-1 1M9 3l1 1M1 4l-1 1M1 4l1 1M2 4l1 1M3 4l1 1M5 4l-1 1M6 4l-1 1M6 4l1 1M8 4l-1 1M8 4l1 1M9 4l1 1M0 5l1 1M1 5l1 1M3 5l-1 1M3 5l1 1M5 5l-1 1M5 5l1 1M7 5l-1 1M7 5l1 1M8 5l1 1M10 5l-1 1M0 6l1 1M2 6l-1 1M2 6l1 1M3 6l1 1M5 6l-1 1M5 6l1 1M7 6l-1 1M8 6l-1 1M9 6l-1 1M9 6l1 1M1 7l-1 1M2 7l-1 1M2 7l1 1M3 7l1 1M4 7l1 1M6 7l-1 1M6 7l1 1M8 7l-1 1M9 7l-1 1M9 7l1 1M0 8l1 1M2 8l-1 1M2 8l1 1M4 8l-1 1M4 8l1 1M5 8l1 1M6 8l1 1M7 8l1 1M9 8l-1 1M10 8l-1 1M0 9l1 1M2 9l-1 1M3 9l-1 1M4 9l-1 1M5 9l-1 1M5 9l1 1M6 9l1 1M8 9l-1 1M9 9l-1 1M9 9l1 1' stroke='black' stroke-width='.16' stroke-linecap='square'/%3E%3C/svg%3E") 0 0 / 320px 320px;
+  }
+</style>
+</head>
+<body></body>
+</html>

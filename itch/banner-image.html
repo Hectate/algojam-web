@@ -1,0 +1,37 @@
+<!doctype html>
+<!--
+  Source for banner-image.png, the itch.io jam page banner (960x240 layout, rendered at 1x).
+  The background is transparent, so the itch.io page background (background-tile.png) shows through
+  and the maze lines up with the rest of the page.
+  Colors are copied from index.html (dark theme). Like the site header, the title and tagline are right-aligned.
+
+  To re-render on Windows with Microsoft Edge, run from this itch/ folder.
+  --default-background-color=00000000 is what keeps the PNG transparent.
+  Command Prompt:
+    "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --headless=new --disable-gpu --hide-scrollbars --default-background-color=00000000 --force-device-scale-factor=1 --window-size=960,240 --screenshot="%CD%\banner-image.png" "%CD%\banner-image.html"
+  PowerShell:
+    & "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --headless=new --disable-gpu --hide-scrollbars --default-background-color=00000000 --force-device-scale-factor=1 --window-size=960,240 --screenshot="$PWD\banner-image.png" "$PWD\banner-image.html"
+  (Use --force-device-scale-factor=2 for a sharper 1920x480 image.)
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<title>AlgoJam banner image</title>
+<style>
+  :root { --fg: #e3f4f6; --muted: #a3c4c9; --accent: #6fd8e8; }
+  html, body { margin: 0; width: 960px; height: 240px; overflow: hidden; background: transparent; }
+  body {
+    position: relative; color: var(--fg);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  .title { position: absolute; right: 56px; top: 50%; transform: translateY(-50%); text-align: right; }
+  h1 { margin: 0; font-size: 96px; line-height: 1; letter-spacing: -0.03em; font-weight: 700; }
+  h1 span { color: var(--accent); }
+  p { margin: 14px 0 0; font-size: 28px; line-height: 1.25; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="title"><h1>Λlgo<span>Jam</span></h1><p>Craft algorithms that create artifacts.</p></div>
+</body>
+</html>

@@ -1,5 +1,3 @@
-# Craft algorithms that create artifacts.
-
 **Creativity is endless!**
 
 AlgoJam is the Algorithmic Generation Jam: a creative endeavor to show how computers can be used to make beautiful and interesting things, and then share them! Everything generative is welcome. It might be an entire game, a small part of one, or not a game at all. You might create something that produces music, poetry, art, or just a tool to make realistic and dynamic broken concrete.
