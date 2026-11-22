@@ -1,0 +1,35 @@
+<!doctype html>
+<!--
+  Source for profile-aj.png, the AlgoJam Bluesky profile image (ΛJ monogram).
+  500x500 layout rendered at 2x = 1000x1000. Bluesky crops avatars to a circle, so keep content inside it.
+  Colors and maze tile are copied from itch/cover-image.html (dark theme).
+
+  To re-render on Windows with Microsoft Edge, run from this social/ folder (PowerShell):
+    & "C:Program Files (x86)MicrosoftEdgeApplicationmsedge.exe" --headless=new --disable-gpu --hide-scrollbars --force-device-scale-factor=2 --window-size=500,500 --screenshot="$PWD${png}" "$PWD${html}"
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<title>AlgoJam profile image</title>
+<style>
+  :root { --bg: #0f2226; --card: #163238; --fg: #e3f4f6; --accent: #6fd8e8; }
+  html, body { margin: 0; width: 500px; height: 500px; overflow: hidden; }
+  body {
+    position: relative; color: var(--fg);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: radial-gradient(circle at 50% 45%, var(--card), var(--bg) 72%);
+  }
+  body::before {
+    content: ""; position: absolute; inset: 0; background: var(--accent); opacity: 0.06;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M0 0l1 1M2 0l-1 1M2 0l1 1M4 0l-1 1M5 0l-1 1M5 0l1 1M6 0l1 1M8 0l-1 1M9 0l-1 1M10 0l-1 1M1 1l-1 1M2 1l-1 1M2 1l1 1M3 1l1 1M4 1l1 1M6 1l-1 1M6 1l1 1M7 1l1 1M9 1l-1 1M10 1l-1 1M1 2l-1 1M1 2l1 1M2 2l1 1M3 2l1 1M5 2l-1 1M6 2l-1 1M7 2l-1 1M7 2l1 1M9 2l-1 1M9 2l1 1M0 3l1 1M1 3l1 1M3 3l-1 1M3 3l1 1M5 3l-1 1M5 3l1 1M6 3l1 1M7 3l1 1M9 3l-1 1M9 3l1 1M1 4l-1 1M1 4l1 1M2 4l1 1M3 4l1 1M5 4l-1 1M6 4l-1 1M6 4l1 1M8 4l-1 1M8 4l1 1M9 4l1 1M0 5l1 1M1 5l1 1M3 5l-1 1M3 5l1 1M5 5l-1 1M5 5l1 1M7 5l-1 1M7 5l1 1M8 5l1 1M10 5l-1 1M0 6l1 1M2 6l-1 1M2 6l1 1M3 6l1 1M5 6l-1 1M5 6l1 1M7 6l-1 1M8 6l-1 1M9 6l-1 1M9 6l1 1M1 7l-1 1M2 7l-1 1M2 7l1 1M3 7l1 1M4 7l1 1M6 7l-1 1M6 7l1 1M8 7l-1 1M9 7l-1 1M9 7l1 1M0 8l1 1M2 8l-1 1M2 8l1 1M4 8l-1 1M4 8l1 1M5 8l1 1M6 8l1 1M7 8l1 1M9 8l-1 1M10 8l-1 1M0 9l1 1M2 9l-1 1M3 9l-1 1M4 9l-1 1M5 9l-1 1M5 9l1 1M6 9l1 1M8 9l-1 1M9 9l-1 1M9 9l1 1' stroke='black' stroke-width='.16' stroke-linecap='square'/%3E%3C/svg%3E") 0 0 / 250px 250px;
+  }
+  .mark { position: absolute; inset: 0; display: grid; place-items: center; }
+  h1 { margin: 0 0 14px 0; font-size: 230px; line-height: 1; letter-spacing: 0.01em; font-weight: 700; }
+  h1 span { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="mark"><h1 aria-label="AJ">Λ<span>J</span></h1></div>
+</body>
+</html>
