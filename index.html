@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AlgoJam — The Algorithmic Generation Jam</title>
+<meta name="description" content="AlgoJam is a jam to make something that makes something. Procedural generation, generative art and algorithmic play, with generative AI tools welcome.">
+<meta property="og:title" content="AlgoJam — The Algorithmic Jam">
+<meta property="og:description" content="Make something that makes something. Generative AI tools welcome.">
+<meta property="og:url" content="https://algojam.org/">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://algojam.org/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%231f5a6f'/%3E%3Cpath d='M4 12 8 4l4 8' stroke='%23fff' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+<style>
+  /* Seafoam palette. Light is the base; dark applies when the system is dark,
+     or when the theme checkbox is ticked on a light system. Ticking the box
+     always flips to the opposite of the system theme. Keep both dark blocks in sync. */
+  :root {
+    --bg: #cde3e5;
+    --card: #d9f7ff;
+    --fg: #000;
+    --muted: #2f4a50;
+    --accent: #1f5a6f;
+    --border: #76a6af;
+    --on-accent: #effcff;
+    --toggle-icon: "\263E\FE0E"; /* moon: switch to dark */
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not(:has(#theme:checked)) {
+      --bg: #0f2226;
+      --card: #163238;
+      --fg: #e3f4f6;
+      --muted: #a3c4c9;
+      --accent: #6fd8e8;
+      --border: #2e6470;
+      --on-accent: #06222a;
+      --toggle-icon: "\2600\FE0E"; /* sun: switch to light */
+      color-scheme: dark;
+    }
+  }
+  @media (prefers-color-scheme: light) {
+    :root:has(#theme:checked) {
+      --bg: #0f2226;
+      --card: #163238;
+      --fg: #e3f4f6;
+      --muted: #a3c4c9;
+      --accent: #6fd8e8;
+      --border: #2e6470;
+      --on-accent: #06222a;
+      --toggle-icon: "\2600\FE0E";
+      color-scheme: dark;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--bg) linear-gradient(135deg,
+      color-mix(in srgb, var(--accent) 14%, var(--bg)),
+      var(--bg) 45%,
+      color-mix(in srgb, var(--accent) 10%, var(--bg)));
+    color: var(--fg);
+    font: 17px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  /* 10 PRINT maze texture: a fixed random tile of diagonal lines used as a mask, tinted with the accent color.
+     Delete this rule to remove it. Adjust opacity for strength, mask-size for scale. */
+  body::before {
+    content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background: var(--accent); opacity: 0.07;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M0 0l1 1M2 0l-1 1M2 0l1 1M4 0l-1 1M5 0l-1 1M5 0l1 1M6 0l1 1M8 0l-1 1M9 0l-1 1M10 0l-1 1M1 1l-1 1M2 1l-1 1M2 1l1 1M3 1l1 1M4 1l1 1M6 1l-1 1M6 1l1 1M7 1l1 1M9 1l-1 1M10 1l-1 1M1 2l-1 1M1 2l1 1M2 2l1 1M3 2l1 1M5 2l-1 1M6 2l-1 1M7 2l-1 1M7 2l1 1M9 2l-1 1M9 2l1 1M0 3l1 1M1 3l1 1M3 3l-1 1M3 3l1 1M5 3l-1 1M5 3l1 1M6 3l1 1M7 3l1 1M9 3l-1 1M9 3l1 1M1 4l-1 1M1 4l1 1M2 4l1 1M3 4l1 1M5 4l-1 1M6 4l-1 1M6 4l1 1M8 4l-1 1M8 4l1 1M9 4l1 1M0 5l1 1M1 5l1 1M3 5l-1 1M3 5l1 1M5 5l-1 1M5 5l1 1M7 5l-1 1M7 5l1 1M8 5l1 1M10 5l-1 1M0 6l1 1M2 6l-1 1M2 6l1 1M3 6l1 1M5 6l-1 1M5 6l1 1M7 6l-1 1M8 6l-1 1M9 6l-1 1M9 6l1 1M1 7l-1 1M2 7l-1 1M2 7l1 1M3 7l1 1M4 7l1 1M6 7l-1 1M6 7l1 1M8 7l-1 1M9 7l-1 1M9 7l1 1M0 8l1 1M2 8l-1 1M2 8l1 1M4 8l-1 1M4 8l1 1M5 8l1 1M6 8l1 1M7 8l1 1M9 8l-1 1M10 8l-1 1M0 9l1 1M2 9l-1 1M3 9l-1 1M4 9l-1 1M5 9l-1 1M5 9l1 1M6 9l1 1M8 9l-1 1M9 9l-1 1M9 9l1 1' stroke='black' stroke-width='.16' stroke-linecap='square'/%3E%3C/svg%3E") 0 0 / 320px 320px;
+  }
+  main, footer { max-width: 42rem; margin: 0 auto; padding: 0 1rem; }
+  header { padding: 4rem 0 2rem; text-align: right; }
+  h1 { font-size: clamp(2.5rem, 8vw, 4rem); line-height: 1; margin: 0; letter-spacing: -0.03em; }
+  h1 .jam { color: var(--accent); }
+  .tagline { font-size: 1.25rem; color: var(--muted); margin: 0.75rem 0 0; }
+  h2 { font-size: 1.15rem; margin: 0 0 0.5rem; text-align: right; }
+  /* Gradient border: card fill on the padding box, accent fade on the border box */
+  section {
+    border: 1.5px solid transparent;
+    background: linear-gradient(var(--card), var(--card)) padding-box,
+                linear-gradient(135deg, var(--accent), transparent 60%) border-box;
+    padding: 1.25rem 1.5rem; margin-bottom: 1.25rem;
+  }
+  section > :last-child { margin-bottom: 0; }
+  a { color: var(--accent); font-weight: 600; }
+  .links { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: 0.75rem; }
+  .links a { display: flex; flex-direction: column; gap: 0.25rem; padding: 0.9rem 1rem; background: var(--accent); border: 1px solid var(--border); color: var(--on-accent); text-decoration: none; }
+  .links a:hover { filter: brightness(1.12); }
+  .links a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .links span { font-size: 0.85rem; font-weight: 400; line-height: 1.35; }
+  ul { padding-left: 1.25rem; }
+  .when { font-weight: 600; }
+  footer { padding-top: 2rem; padding-bottom: 3rem; color: var(--muted); font-size: 0.875rem; }
+  .theme { position: absolute; top: 1rem; right: 1rem; cursor: pointer; }
+  .theme input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; }
+  .theme span { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border: 1px solid var(--border); border-radius: 50%; color: var(--accent); background: var(--card); font-size: 1.25rem; line-height: 1; }
+  .theme span::before { content: var(--toggle-icon); }
+  .theme input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>
+</head>
+<body>
+<label class="theme" title="Switch light/dark theme"><input type="checkbox" id="theme" aria-label="Switch light/dark theme"><span aria-hidden="true"></span></label>
+<main>
+  <header>
+    <h1 aria-label="AlgoJam"><span aria-hidden="true">Λlgo<span class="jam">Jam</span></span></h1>
+    <p class="tagline">The Algorithmic Jam: make something that makes something.</p>
+  </header>
+
+  <section id="about">
+    <h2>What is it?</h2>
+    <p>AlgoJam is a relaxed, low-pressure jam about procedural generation. Build a level generator, a story engine, a music machine, a plant grower, a poem bot: anything where you make the thing that makes the thing. Computers are great tools to enable human creativity, and that's what this jam is all about!</p>
+    <p>It follows in the spirit of its older sibling, <a href="https://www.procjam.com/">ProcJam</a>, which you should also participate in!</p>
+  </section>
+
+  <section id="when">
+    <h2>When</h2>
+    <p class="when"><!-- TODO: jam dates -->TBA</p>
+    <p><i>AlgoJam will always take place in the "off-season" between ProcJams.</i></p>
+  </section>
+
+  <section id="rules">
+    <h2>AI Usage</h2>
+    <ul>
+      <li>Generative AI tools are allowed as assistants, for example to help write or debug code, explain an algorithm, or bounce ideas around.</li>
+      <li>Your submission should show your own creativity. The idea, the design and the generator itself should come from you.</li>
+      <li>Entries that are mostly AI output, such as software an agent designed and built from a prompt, or AI-generated images, music or text submitted as-is, aren't in the spirit of the jam.</li>
+      <li>Say how you used AI tools. A sentence or two on your submission page is enough.</li>
+    </ul>
+  </section>
+
+  <section id="join">
+    <h2>Links</h2>
+    <div class="links">
+      <a href="#"><!-- TODO: itch.io jam URL --><b>Join the Jam</b><span>Sign up on itch.io (coming soon)</span></a>
+      <a href="https://discord.gg/67yD223"><b>Join Discord</b><span>Chat with us in the ProcJam community</span></a>
+      <a href="https://www.procjam.com/"><b>Visit ProcJam</b><span>The original procedural generation jam</span></a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>© 2026 Nathaniel Mitchell. Site source on <a href="https://github.com/"><!-- TODO: repo URL -->GitHub</a>.</p>
+</footer>
+</body>
+</html>
